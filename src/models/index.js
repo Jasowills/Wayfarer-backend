@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 import databaseConfig from '../config/config';
-
 const basename = path.basename(__filename);
 let configEnv;
 let sequelize;
@@ -22,7 +21,6 @@ if (configEnv.use_env_variable) {
     configEnv.database, configEnv.username, configEnv.password, configEnv
   );
 }
-
 fs.readdirSync(__dirname)
   .filter(file => (file.indexOf('.') !== 0)
     && (file !== basename)
