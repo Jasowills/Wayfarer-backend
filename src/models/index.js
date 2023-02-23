@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 import databaseConfig from '../config/config';
+
 const basename = path.basename(__filename);
 let configEnv;
 let sequelize;
@@ -21,16 +22,17 @@ if (configEnv.use_env_variable) {
     configEnv.database, configEnv.username, configEnv.password, configEnv
   );
 }
+
 fs.readdirSync(__dirname)
   .filter(file => (file.indexOf('.') !== 0)
     && (file !== basename)
     && (file.slice(-3) === '.js'))
-  .forEach(modelFile => {
-    const model = sequelize.import(path.join(__dirname, modelFile));
+  .forEach(async (modelFile) => {
+    const model = (await import(path.join(__dirname, modelFile))).default(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
 
-Object.keys(db).forEach(modelName => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
@@ -38,4 +40,5 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-module.exports = db;
+
+export default db;
