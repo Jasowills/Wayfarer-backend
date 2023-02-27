@@ -9,7 +9,6 @@ const databaseEnvDetails = {
   dialect: 'postgres',
   logging: false,
 };
-
 const config = {
   development: {
     database: process.env.DB_CONFIG_DEV,
