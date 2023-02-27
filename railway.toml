@@ -1,0 +1,6 @@
+[build]
+install = "yarn"
+build = "yarn build"
+
+[deploy]
+startCommand= "yarn prod-start"
