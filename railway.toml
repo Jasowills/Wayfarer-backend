@@ -1,6 +1,6 @@
 [build]
-install = "npm install"
-build = "npm run build"
+install = "yarn install"
+build = "yarn build"
 
 [deploy]
-startCommand= "npm run prod-start"
+startCommand= "yarn prod-start"
