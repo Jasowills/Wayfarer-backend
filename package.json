@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "build": "babel ./src --out-dir ./build",
-    "prod-start": "export NODE_ENV=production && npm run migrate && npm run build && npm run start",
+    "prod-start": "export NODE_ENV=production && yarn migrate &&  yarn start",
     "start": "node build/index.js",
     "dev": "export NODE_ENV=development && nodemon --exec babel-node src/index.js",
     "lint": "eslint .",
