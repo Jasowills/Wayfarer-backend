@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import user from "../models/user";
 import Authentication from "../utils/authentication";
 import _ from 'lodash'
-import { clearConfigCache } from "prettier";
 
 const { User, } = models;
 class UserController {
