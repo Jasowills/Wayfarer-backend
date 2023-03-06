@@ -1,6 +1,6 @@
-import { Booking } from '../models';
-import { Trip } from '../models';
-import { User } from '../models';
+// import { Booking } from '../models';
+// import { Trip } from '../models';
+// import { User } from '../models';
 
 class BookingController {
   async create(req, res) {

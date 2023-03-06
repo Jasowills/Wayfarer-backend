@@ -1,8 +1,9 @@
+import { Sequelize, DataTypes } from 'sequelize';
+const sequelize = new Sequelize("postgres://wuwsymwj:PgCRcWYkcQanX2MBBF0DXmIvNkgaRHnk@snuffleupagus.db.elephantsql.com/wuwsymwj")
 
-export default (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    id: {
-      type: DataTypes.INTEGER,
+const User = sequelize.define('User', {
+   id: {
+      type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
@@ -57,13 +58,10 @@ export default (sequelize, DataTypes) => {
           msg: 'Password must be more than 5 characters'
         }
       }
-    },
-  }
-  );
-  User.associate = (models) => {
-  User.hasMany(models.Booking, { foreignKey: 'userId', as: 'bookings' });
-};
+    }
+});
 
-  
-  return User;
-};
+sequelize.sync()
+
+
+export default User;

@@ -1,5 +1,3 @@
-import { clearConfigCache } from "prettier"
-const { Trip } = require('../models');
 
 
 class TripController {
