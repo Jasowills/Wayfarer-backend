@@ -3,9 +3,12 @@ import express from "express";
 import routes from "./routes";
 import { Sequelize } from "sequelize";
 
-const INTERNAL_DB_URL = process.env.INTERNAL_DB_URL || "postgres://wuwsymwj:PgCRcWYkcQanX2MBBF0DXmIvNkgaRHnk@snuffleupagus.db.elephantsql.com/wuwsymwj";
+const INTERNAL_DB_URL =
+  process.env.INTERNAL_DB_URL ||
+  "postgres://wuwsymwj:PgCRcWYkcQanX2MBBF0DXmIvNkgaRHnk@snuffleupagus.db.elephantsql.com/wuwsymwj";
 
 const sequelize = new Sequelize(INTERNAL_DB_URL);
+
 async function connectToDB() {
   try {
     await sequelize.authenticate();
@@ -19,11 +22,8 @@ connectToDB();
 
 const app = express();
 
-app.get("/", (req, res) => {
-  return res.send({
-    message: "Welcome to wayfarer api"
-  });
-});
+// Add the cors() middleware before your routes
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
