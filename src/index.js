@@ -2,6 +2,7 @@
 import express from "express";
 import routes from "./routes";
 import { Sequelize } from "sequelize";
+import cors from "cors";
 
 const INTERNAL_DB_URL =
   process.env.INTERNAL_DB_URL ||
