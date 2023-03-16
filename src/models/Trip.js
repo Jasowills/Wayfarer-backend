@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../config/database';
+import { Sequelize, DataTypes } from 'sequelize';
+const sequelize = new Sequelize("postgres://wuwsymwj:PgCRcWYkcQanX2MBBF0DXmIvNkgaRHnk@snuffleupagus.db.elephantsql.com/wuwsymwj")
 
 const Trip = sequelize.define('Trip', {
   id: {
@@ -44,7 +44,10 @@ const Trip = sequelize.define('Trip', {
     defaultValue: 20,
   },
 });
+
 sequelize.sync()
+
+
 Trip.associate = (models) => {
   Trip.hasMany(models.Booking, { foreignKey: 'tripId' });
 };

@@ -1,4 +1,4 @@
-
+import Trip from "../models/Trip";
 
 class TripController {
   static async createTrip(req, res) {

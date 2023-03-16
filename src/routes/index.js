@@ -21,8 +21,8 @@ router.put("/api/v1/booking/:id", Auth.checkToken, bookingController.updateBooki
 
 
 
-router.post("/api/v1/trip",Auth.checkToken,Auth.confirmAdmin, tripSanitizer.createTrip, TripController.createTrip)
-router.get("/api/v1/trips",Auth.checkToken,Auth.confirmAdmin,TripController.getAllTrips)
+router.post("/api/v1/trip", tripSanitizer.createTrip, TripController.createTrip)
+router.get("/api/v1/trips",TripController.getAllTrips)
 router.get("/api/v1/trips/:id",Auth.checkToken,Auth.confirmAdmin, TripController.getTripById)
 router.put("/api/v1/trips/:id",Auth.checkToken,Auth.confirmAdmin, tripSanitizer.updateTrip, TripController.updateTrip)
 router.delete("/api/v1/trips/:id", Auth.checkToken, Auth.confirmAdmin, tripSanitizer.deleteTrip, TripController.deleteTrip)

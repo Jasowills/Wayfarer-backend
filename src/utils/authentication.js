@@ -27,7 +27,7 @@ class Authentication {
     const token = jwt.sign({
       id: payload.id,
       isAdmin: payload.isAdmin,
-      firstname: payload.firstname,
+      firstName: payload.firstName,
       email: payload.email
     }, process.env.JWT_SECRET, {
       expiresIn
@@ -41,28 +41,29 @@ class Authentication {
    * @param {string} token - token input
    * @returns {req} - populate the request with the decrypted content
    */
-  static async verifyToken(token) {
-    const reshuffledToken = shuffleToken(token);
-    let output = {};
-    return jwt.verify(
-      reshuffledToken, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) {
-          output = {
-            Error: 'Failed to authenticate token',
-            success: false
-          };
-        } else {
-          output = {
-            success: true,
-            id: decoded.id,
-            isAdmin: decoded.isAdmin,
-            firstname: decoded.firstname,
-          };
-        }
-        return output;
+ static async verifyToken(token) {
+  const reshuffledToken = shuffleToken(token);
+  return new Promise((resolve, reject) => {
+    jwt.verify(reshuffledToken, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        const output = {
+          Error: 'Failed to authenticate token',
+          success: false
+        };
+        reject(output);
+      } else {
+        const output = {
+          success: true,
+          id: decoded.id,
+          isAdmin: decoded.isAdmin,
+          firstName: decoded.firstName,
+        };
+        resolve(output);
       }
-    );
-  }
+    });
+  });
+}
+
 }
 
 export default Authentication;
