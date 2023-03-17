@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from 'sequelize';
-const sequelize = new Sequelize("postgres://wuwsymwj:PgCRcWYkcQanX2MBBF0DXmIvNkgaRHnk@snuffleupagus.db.elephantsql.com/wuwsymwj")
+const sequelize = new Sequelize("postgres://wuwsymwj:McUtU3Hxw1AoJGldP759hyih1gux8NC1@snuffleupagus.db.elephantsql.com/wuwsymwj")
 
 const User = sequelize.define('User', {
    id: {

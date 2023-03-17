@@ -6,7 +6,7 @@ import cors from "cors";
 
 const INTERNAL_DB_URL =
   process.env.INTERNAL_DB_URL ||
-  "postgres://wuwsymwj:PgCRcWYkcQanX2MBBF0DXmIvNkgaRHnk@snuffleupagus.db.elephantsql.com/wuwsymwj";
+  "postgres://wuwsymwj:McUtU3Hxw1AoJGldP759hyih1gux8NC1@snuffleupagus.db.elephantsql.com/wuwsymwj";
 
 const sequelize = new Sequelize(INTERNAL_DB_URL);
 
