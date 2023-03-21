@@ -12,7 +12,7 @@ const router = Router();
 
 
 
-router.post("/api/v1/booking", Auth.checkToken, bookingController.create);
+router.post("/api/v1/booking",  bookingController.create);
 router.get("/api/v1/booking", Auth.checkToken, bookingController.findAll);
 router.delete("/api/v1/booking/:id", Auth.checkToken, bookingController.deleteBooking);
 router.get("/api/v1/booking/:id", Auth.checkToken, bookingController.findOne);

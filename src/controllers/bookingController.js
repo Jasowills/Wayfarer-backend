@@ -1,59 +1,73 @@
-// import { Booking } from '../models';
-// import { Trip } from '../models';
-// import { User } from '../models';
+import  Booking  from '../models/Booking';
+import  Trip  from '../models/Trip';
+import  User  from '../models/User';
 
 class BookingController {
-  async create(req, res) {
+ async create(req, res) {
     try {
       const { tripId, userId, numberOfSeats } = req.body;
+
       const trip = await Trip.findOne({ where: { id: tripId } });
       const user = await User.findOne({ where: { id: userId } });
+
       if (!trip || !user) {
         return res.status(404).send({
           message: 'Trip or User not found',
         });
       }
+
       const existingBookings = await Booking.findAll({ where: { tripId } });
       const totalSeatsBooked = existingBookings.reduce((acc, booking) => acc + booking.numberOfSeats, 0);
+
+      if (numberOfSeats > trip.maximumCapacity) {
+        return res.status(400).send({
+          message: 'Not enough seats available',
+        });
+      }
+
       if (totalSeatsBooked + numberOfSeats > trip.maximumCapacity) {
         return res.status(400).send({
           message: 'Not enough seats available',
         });
       }
-      if (numberOfSeats > 20) {
-       return res.status(400).send({
-          message: 'No enough seats'
-        })
-      }
+
       if (trip.currentCapacity + numberOfSeats > trip.maximumCapacity) {
         return res.status(400).send({
           message: 'The trip is fully booked',
         });
       }
-      const booking = await Booking.create({ tripId, userId, numberOfSeats });
-     trip.currentCapacity += numberOfSeats;
-     await trip.save();
-      const result = await Booking.findOne({
-      where: { id: booking.id },
-      include: [{
-        model: Trip,
-        as: 'Trip',
-      }],
-      attributes: { exclude: ['tripId'] }
-    });
+const fare = trip.fare;
+    const totalFare = numberOfSeats * fare;
+      const booking = await Booking.create({ tripId, userId, numberOfSeats, totalFare });
+      
+      trip.currentCapacity += numberOfSeats;
+      await trip.save();
+
+      const result = {
+        id: booking.id,
+        tripId: booking.tripId,
+        userId: booking.userId,
+        numberOfSeats: booking.numberOfSeats,
+        createdAt: booking.createdAt,
+        updatedAt: booking.updatedAt,
+        totalFare,
+        Trip: trip,
+      };
+
       return res.status(201).send({
         message: 'Booking created successfully',
         data: result,
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return res.status(500).send({
         message: 'Error creating booking',
-        error
+        error,
       });
     }
   }
-  async findAll(req, res) {
+
+ async findAll(req, res) {
     try {
       const bookings = await Booking.findAll({
         include: [{
@@ -74,6 +88,7 @@ class BookingController {
       });
     }
   }
+
  async deleteBooking(req, res) {
   try {
     const { id } = req.params;

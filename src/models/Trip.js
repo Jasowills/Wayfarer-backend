@@ -45,11 +45,10 @@ const Trip = sequelize.define('Trip', {
   },
 });
 
-sequelize.sync()
-
 
 Trip.associate = (models) => {
   Trip.hasMany(models.Booking, { foreignKey: 'tripId' });
 };
 
+sequelize.sync()
 export default Trip;

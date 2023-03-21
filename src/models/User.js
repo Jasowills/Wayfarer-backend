@@ -1,6 +1,5 @@
 import { Sequelize, DataTypes } from 'sequelize';
 const sequelize = new Sequelize("postgres://wuwsymwj:McUtU3Hxw1AoJGldP759hyih1gux8NC1@snuffleupagus.db.elephantsql.com/wuwsymwj")
-
 const User = sequelize.define('User', {
    id: {
       type: DataTypes.UUID,
@@ -61,7 +60,12 @@ const User = sequelize.define('User', {
     }
 });
 
-sequelize.sync()
 
+User.associate = (models) => {
+  User.hasMany(models.Booking, { foreignKey: 'userId' });
+  
+  User.belongsToMany(models.Trip, { through: models.Booking });
+};
+sequelize.sync()
 
 export default User;
