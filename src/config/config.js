@@ -8,7 +8,14 @@ const databaseEnvDetails = {
   port: process.env.DB_CONFIG_PORT,
   dialect: 'postgres',
   logging: false,
+  pool: {
+    max: 20,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
 };
+
 const config = {
   development: {
     database: process.env.DB_CONFIG_DEV,
