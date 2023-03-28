@@ -138,6 +138,29 @@ async findOne(req, res) {
     });
   }
 }
+    async findUserBookings(req, res) {
+    try {
+      const { userId } = req.params;
+      const bookings = await Booking.findAll({
+        where: { userId },
+        include: [{
+          model: Trip,
+          as: 'Trip',
+        }],
+        attributes: { exclude: ['tripId'] },
+      });
+      return res.status(200).send({
+        message: 'User bookings retrieved successfully',
+        data: bookings,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({
+        message: 'Error retrieving user bookings',
+        error,
+      });
+    }
+  }
 async updateBooking(req, res) {
     const { bookingId } = req.params;
     const updates = req.body;

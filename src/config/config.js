@@ -9,10 +9,10 @@ const databaseEnvDetails = {
   dialect: 'postgres',
   logging: false,
   pool: {
-    max: 100,
-    min: 1,
-    acquire: 3000000,
-    idle: 10000000
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
   }
 };
 

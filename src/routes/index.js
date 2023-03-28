@@ -17,8 +17,7 @@ router.get("/api/v1/booking", Auth.checkToken, bookingController.findAll);
 router.delete("/api/v1/booking/:id", Auth.checkToken, bookingController.deleteBooking);
 router.get("/api/v1/booking/:id", Auth.checkToken, bookingController.findOne);
 router.put("/api/v1/booking/:id", Auth.checkToken, bookingController.updateBooking);
-
-
+router.get('/bookings/user/:userId', bookingController.findUserBookings);
 
 
 router.post("/api/v1/trip", tripSanitizer.createTrip, TripController.createTrip)
