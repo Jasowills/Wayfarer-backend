@@ -24,7 +24,10 @@ connectToDB();
 const app = express();
 
 // Add the cors() middleware before your routes
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200,
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
