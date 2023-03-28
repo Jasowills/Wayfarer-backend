@@ -8,12 +8,12 @@ const databaseEnvDetails = {
   port: process.env.DB_CONFIG_PORT,
   dialect: 'postgres',
   logging: false,
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
+  // pool: {
+  //   max: 5,
+  //   min: 0,
+  //   acquire: 30000,
+  //   idle: 10000
+  // }
 };
 
 const config = {
