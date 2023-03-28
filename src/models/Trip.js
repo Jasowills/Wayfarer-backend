@@ -1,7 +1,7 @@
-import { Sequelize, DataTypes } from 'sequelize';
-const sequelize = new Sequelize("postgres://wuwsymwj:McUtU3Hxw1AoJGldP759hyih1gux8NC1@snuffleupagus.db.elephantsql.com/wuwsymwj")
+import {DataTypes } from 'sequelize';
+import db from "../database/database"
 
-const Trip = sequelize.define('Trip', {
+const Trip = db.define('Trip', {
   id: {
     type: DataTypes.UUID,
     allowNull: false,
@@ -50,5 +50,5 @@ Trip.associate = (models) => {
   Trip.hasMany(models.Booking, { foreignKey: 'tripId' });
 };
 
-sequelize.sync()
+db.sync()
 export default Trip;

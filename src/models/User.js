@@ -1,6 +1,6 @@
-import { Sequelize, DataTypes } from 'sequelize';
-const sequelize = new Sequelize("postgres://wuwsymwj:McUtU3Hxw1AoJGldP759hyih1gux8NC1@snuffleupagus.db.elephantsql.com/wuwsymwj")
-const User = sequelize.define('User', {
+import { DataTypes } from 'sequelize';
+import db from "../database/database";
+const User = db.define('User', {
    id: {
       type: DataTypes.UUID,
       allowNull: false,
@@ -66,6 +66,6 @@ User.associate = (models) => {
   
   User.belongsToMany(models.Trip, { through: models.Booking });
 };
-sequelize.sync()
+db.sync()
 
 export default User;
