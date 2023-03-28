@@ -68,26 +68,23 @@ const fare = trip.fare;
   }
 
  async findAll(req, res) {
-    try {
-      const bookings = await Booking.findAll({
-        include: [{
-          model: Trip,
-          as: 'Trip',
-        }],
-        attributes: { exclude: ['tripId'] },
-      });
-      return res.status(200).send({
-        message: 'Bookings retrieved successfully',
-        data: bookings,
-      });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        message: 'Error retrieving bookings',
-        error,
-      });
-    }
+  try {
+    const bookings = await Booking.findAll({
+      attributes: { exclude: ['tripId'] },
+    });
+    return res.status(200).send({
+      message: 'Bookings retrieved successfully',
+      data: bookings,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      message: 'Error retrieving bookings',
+      error,
+    });
   }
+}
+
 
  async deleteBooking(req, res) {
   try {
@@ -138,29 +135,52 @@ async findOne(req, res) {
     });
   }
 }
-    async findUserBookings(req, res) {
-    try {
-      const { userId } = req.params;
-      const bookings = await Booking.findAll({
-        where: { userId },
-        include: [{
-          model: Trip,
-          as: 'Trip',
-        }],
-        attributes: { exclude: ['tripId'] },
-      });
+  async  findUserBookings(req, res) {
+  const { userId } = req.params;
+  try {
+    const bookings = await Booking.findAll({
+      where: { userId },
+      attributes: { include: ['tripId'] },
+    });
+    const tripIds = bookings.map(booking => booking.tripId);
+    if (tripIds.length === 0) {
       return res.status(200).send({
-        message: 'User bookings retrieved successfully',
-        data: bookings,
-      });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        message: 'Error retrieving user bookings',
-        error,
+        message: 'User has no bookings',
+        data: [],
       });
     }
+    console.log(bookings.tripId)
+    const trips = await Trip.findAll({
+      where: { id: tripIds },
+    });
+    const data = bookings.map(booking => {
+      const trip = trips.find(trip => trip.id === booking.tripId);
+      if (trip) {
+        return {
+          id: booking.id,
+          status: booking.status,
+          tripOrigin: trip.origin,
+          tripDestination: trip.destination,
+          tripPrice: trip.fare,
+          tripStartDate: trip.startDate,
+          tripEndDate: trip.endDate,
+        };
+      }
+      return null;
+    }).filter(Boolean); // filter out null values
+    return res.status(200).send({
+      message: 'User bookings retrieved successfully',
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      message: 'Error retrieving user bookings',
+      error,
+    });
   }
+}
+
 async updateBooking(req, res) {
     const { bookingId } = req.params;
     const updates = req.body;
