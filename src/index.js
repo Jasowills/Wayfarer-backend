@@ -18,12 +18,13 @@ async function connectToDB() {
     console.error("Unable to connect to the database:", error);
   }
 }
+const app = express();
+
 
 app.use(cors());
 
 connectToDB();
 
-const app = express();
 
 // Add the cors() middleware before your routes
 
@@ -31,4 +32,4 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
-app.listen(4000, () => console.log(`Server is running on port 4000`));
+app.listen(4001, () => console.log(`Server is running on port 4000`));
