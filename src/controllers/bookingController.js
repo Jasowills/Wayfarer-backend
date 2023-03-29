@@ -162,6 +162,7 @@ async findOne(req, res) {
         return {
           id: booking.id,
           status: booking.status,
+          date: booking.createdAt,
           tripOrigin: trip.origin,
           tripDestination: trip.destination,
           tripPrice: trip.fare,
