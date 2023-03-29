@@ -10,6 +10,12 @@ const databaseEnvDetails = {
   logging: false,
   
 }
+const testEnvDetails = {
+  url: process.env.TEST_URL,
+  logging: false
+}
+
+
 
 const config = {
   development: {
@@ -18,7 +24,7 @@ const config = {
   },
   test: {
     database: process.env.DB_CONFIG_TEST,
-    ...databaseEnvDetails
+    ...testEnvDetails,
   },
   production: {
     use_env_variable: "DATABASE_URL",
