@@ -2,6 +2,9 @@ import  Booking  from '../models/Booking';
 import  Trip  from '../models/Trip';
 import  User  from '../models/User';
 
+
+
+
 class BookingController {
  async create(req, res) {
     try {
