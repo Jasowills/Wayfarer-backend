@@ -6,7 +6,13 @@ config();
 const dbUrl = process.env.DATABASE_URL
 
 
-const sequelize = new Sequelize(dbUrl);
+const sequelize = new Sequelize(dbUrl, {
+    pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+    }
+});
 
 
   

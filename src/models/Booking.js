@@ -27,5 +27,4 @@ Booking.associate = (models) => {
   Booking.belongsTo(models.Trip, { foreignKey: 'tripId' });
   Booking.belongsTo(models.User, { foreignKey: 'userId' });
 };
-db.sync()
 export default Booking;

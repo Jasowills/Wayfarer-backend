@@ -51,5 +51,4 @@ const Trip = db.define('Trip', {
 Trip.associate = (models) => {
   Trip.hasMany(models.Booking, { foreignKey: 'tripId' });
 };
-db.sync()
 export default Trip;

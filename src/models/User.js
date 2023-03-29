@@ -66,5 +66,4 @@ User.associate = (models) => {
   
   User.belongsToMany(models.Trip, { through: models.Booking });
 };
-db.sync()
 export default User;
