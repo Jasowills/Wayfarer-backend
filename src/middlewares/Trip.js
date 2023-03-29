@@ -15,8 +15,8 @@ class TripSanitizer {
         if (Validator.checkEmpty(endDate)) return response('End date cannot be empty', 400);
         if (Validator.checkEmpty(destination)) return response('Destination cannot be empty', 400);
         if (Validator.isValidParamsLength(name, 5)) return response('Trip name must be greater than five characters', 422);
-        if (Validator.isValidParamsLength(origin, 5)) return response('Origin must be greater than five characters', 422);
-        if (Validator.isValidParamsLength(destination, 5)) return response('Destination must be greater than five characters', 422);
+        if (Validator.isValidParamsLength(origin, 2)) return response('Origin must be greater than five characters', 422);
+        if (Validator.isValidParamsLength(destination, 2)) return response('Destination must be greater than five characters', 422);
         if (startDate > endDate) return response('Start date must be before end date', 422);
         next();
     }
