@@ -14,7 +14,7 @@ const router = Router();
 
 router.post("/api/v1/booking",  bookingController.create);
 router.get("/api/v1/booking",  bookingController.findAll);
-router.delete("/api/v1/booking/:id", Auth.checkToken, bookingController.deleteBooking);
+router.delete("/api/v1/booking/:id",  bookingController.deleteBooking);
 router.get("/api/v1/booking/:id", Auth.checkToken, bookingController.findOne);
 router.put("/api/v1/booking/:id", Auth.checkToken, bookingController.updateBooking);
 router.get('/api/v1/bookings/user/:userId', bookingController.findUserBookings);
