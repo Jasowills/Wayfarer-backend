@@ -74,10 +74,38 @@ const fare = trip.fare;
   try {
     const bookings = await Booking.findAll({
       attributes: { exclude: ['tripId'] },
+      include: [
+        { model: User, attributes: ['firstName'] },
+        { model: Trip, attributes: ['origin', 'destination'] }
+      ]
     });
+
+    const results = bookings.map(booking => {
+      const { id, numberOfSeats, createdAt, updatedAt } = booking;
+      const totalFare = calculateTotalFare(booking); // assuming this function exists
+      const trip = {
+        id: booking.Trip.id,
+        origin: booking.Trip.origin,
+        destination: booking.Trip.destination
+      };
+      const user = {
+        id: booking.User.id,
+        firstName: booking.User.firstName
+      };
+      return {
+        id,
+        numberOfSeats,
+        createdAt,
+        updatedAt,
+        totalFare,
+        trip,
+        user
+      };
+    });
+
     return res.status(200).send({
       message: 'Bookings retrieved successfully',
-      data: bookings,
+      data: results,
     });
   } catch (error) {
     console.log(error);
@@ -87,6 +115,7 @@ const fare = trip.fare;
     });
   }
 }
+
 
 
  async deleteBooking(req, res) {
