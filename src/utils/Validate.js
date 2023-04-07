@@ -10,40 +10,37 @@ class Validate {
   }
 
   static isValidParamsLength(param, length) {
-    return param.length < length;
+    return param.length <= length;
   }
 
-
   static checkEmpty(input) {
-    const re = /^$/;
-    const testBody = re.test(input);
-    return testBody;
+    const re = /^\s*$/;
+    return re.test(input);
   } 
 
   static containsNumber(name) {
-    const re = /[0-9]/g;
-    const testName = re.test(name);
-    return testName;
+    const re = /\d/;
+    return re.test(name);
   }
 
   static validImage(image) {
-    const re = /(.jpg|.jpeg|.png|.gif)$/g;
-    return image.match(re);
+    const re = /\.(jpg|jpeg|png|gif)\s*$/i;
+    return re.test(image);
   }
   
   static isMatchingPassword(password, confirmPassword) {
     return password === confirmPassword;
   }
-  static itsaNumber(item) {
+
+  static isNumber(item) {
     const re = /^[-+]?\d*$/;
     return re.test(item);
   }
-   static isValidDestination(destination) {
-  const re = /^[a-zA-Z]{1,12}$/;
-  return re.test(destination);
-}
 
- 
+  static isValidDestination(destination) {
+    const re = /^[a-zA-Z']+(\s[a-zA-Z']+)?$/;
+    return re.test(destination);
+  }
 }
 
 export default Validate;

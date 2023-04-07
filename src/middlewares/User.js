@@ -5,7 +5,7 @@ class UserSanitizer {
 
    static signup(req, res, next) {
        
-       const {
+      const {
       firstName, lastName, password, email, isAdmin,  confirmPassword,
     } = req.body;
     const response = (error, code) => res.status(code).send({ status: 'error', error });
